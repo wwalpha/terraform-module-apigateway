@@ -1,9 +1,8 @@
 locals {
   integration_http_method = "POST"
-  integration_type        = "AWS_PROXY"
   status_code             = "200"
 
-  status = {
+  status_200 = {
     statusCode = 200
   }
 }

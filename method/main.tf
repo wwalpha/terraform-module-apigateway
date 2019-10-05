@@ -39,4 +39,28 @@ resource "aws_api_gateway_method_response" "this" {
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = true
   }
+
+  count = var.integration_type == "AWS_PROXY" ? 1 : 0
+}
+
+# -------------------------------------------------------
+# Amazon API Gateway Method Response
+# -------------------------------------------------------
+resource "aws_api_gateway_method_response" "mock" {
+  depends_on = [aws_api_gateway_method.this]
+
+  rest_api_id = var.rest_api_id
+  resource_id = var.resource_id
+  http_method = var.http_method
+  status_code = local.status_200.statusCode
+
+  response_models = {
+    "application/json" = "Empty"
+  }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = false
+  }
+
+  count = var.integration_type == "MOCK" ? 1 : 0
 }
