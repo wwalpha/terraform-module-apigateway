@@ -110,37 +110,4 @@ variable "authorizer_policy" {
   default = null
 }
 
-variable "stage_name" {
-  default = "v1"
-}
-
-variable "stage_xray_enabled" {
-  default = true
-}
-
-# --------------------------------------------------------------------------------------------------------------
-# The fully-qualified domain name to register
-# --------------------------------------------------------------------------------------------------------------
-variable "custom_domain_name" {
-  default = null
-}
-
-# --------------------------------------------------------------------------------------------------------------
-#  Configuration block defining API endpoint information including type.
-# --------------------------------------------------------------------------------------------------------------
-variable "custom_domain_endpoint_configuration" {
-  default = "EDGE"
-}
-
-# --------------------------------------------------------------------------------------------------------------
-# The ARN for an AWS-managed certificate. AWS Certificate Manager is the only supported source.
-# Used when a regional domain name is desired
-# --------------------------------------------------------------------------------------------------------------
-variable "custom_domain_regional_certificate_arn" {
-  default = null
-}
-
-variable "custom_domain_base_path" {
-  default = "EDGE"
-}
 

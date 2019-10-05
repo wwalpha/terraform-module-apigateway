@@ -6,6 +6,4 @@ locals {
   status = {
     statusCode = 200
   }
-
-  count_cors = var.cors_enabled ? 1 : 0
 }
