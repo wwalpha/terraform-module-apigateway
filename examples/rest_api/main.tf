@@ -57,7 +57,7 @@ module "deployment" {
   description = "deployment description"
   deployment_md5 = "${base64encode(join("", [
     file("main.tf"),
-    "${module.method.integration_id}"
+    "${module.method.method_id}"
   ]))}"
   xray_tracing_enabled = true
   stage_description    = "stage description"
