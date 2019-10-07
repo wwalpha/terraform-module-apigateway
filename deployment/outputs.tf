@@ -22,19 +22,19 @@ output "execution_arn" {
 # The ID of the deployment
 # ------------------------------------------------------------------------------------------------
 output "deployment_id" {
-  value = aws_api_gateway_deployment.this[0].id
+  value = aws_api_gateway_deployment.this.id
 }
 # ------------------------------------------------------------------------------------------------
 # The creation date of the deployment
 # ------------------------------------------------------------------------------------------------
 output "created_date" {
-  value = aws_api_gateway_deployment.this[0].created_date
+  value = aws_api_gateway_deployment.this.created_date
 }
 # ------------------------------------------------------------------------------------------------
 # The upload date associated with the domain certificate.
 # ------------------------------------------------------------------------------------------------
 output "certificate_upload_date" {
-  value = aws_api_gateway_deployment.this[0].created_date
+  value = aws_api_gateway_deployment.this.created_date
 }
 # ------------------------------------------------------------------------------------------------
 # The hostname created by Cloudfront to represent the distribution that implements this domain name mapping.

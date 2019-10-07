@@ -43,6 +43,7 @@ module "method" {
 
   rest_api_id         = "${module.api.id}"
   resource_id         = "${module.resource.id}"
+  http_method         = "GET"
   lambda_function_uri = "${module.lambda.invoke_arn}"
 }
 
@@ -57,6 +58,7 @@ module "deployment" {
   description = "deployment description"
   deployment_md5 = "${base64encode(join("", [
     file("main.tf"),
+    "${module.method.integration_id}",
     "${module.method.method_id}"
   ]))}"
   xray_tracing_enabled = true
@@ -64,4 +66,5 @@ module "deployment" {
   stage_tags = {
     Name = "test"
   }
+  integration_ids = ["${module.method.integration_id}"]
 }

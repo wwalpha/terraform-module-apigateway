@@ -2,6 +2,7 @@
 # Amazon API Gateway Integration - Lambda
 # -------------------------------------------------------
 resource "aws_api_gateway_integration" "lambda" {
+  depends_on              = [aws_api_gateway_method.this]
   rest_api_id             = var.rest_api_id
   resource_id             = var.resource_id
   http_method             = aws_api_gateway_method.this.http_method
@@ -21,7 +22,7 @@ resource "aws_api_gateway_integration" "lambda" {
 # Amazon API Gateway Integration Response - Lambda
 # -------------------------------------------------------
 resource "aws_api_gateway_integration_response" "lambda" {
-  depends_on = [aws_api_gateway_integration.lambda]
+  depends_on = [aws_api_gateway_integration.lambda, aws_api_gateway_method.this]
 
   rest_api_id = var.rest_api_id
   resource_id = var.resource_id
@@ -31,6 +32,8 @@ resource "aws_api_gateway_integration_response" "lambda" {
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = "integration.response.header.Access-Control-Allow-Origin"
   }
+
+  count = var.integration_type == "AWS_PROXY" ? 1 : 0
 }
 
 # -------------------------------------------------------

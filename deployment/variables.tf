@@ -105,3 +105,6 @@ variable "custom_domain_regional_certificate_arn" {
 variable "custom_domain_base_path" {
   default = null
 }
+variable "integration_ids" {
+  default = null
+}
