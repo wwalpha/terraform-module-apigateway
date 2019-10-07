@@ -30,13 +30,6 @@ output "deployment_id" {
 output "created_date" {
   value = aws_api_gateway_deployment.this.created_date
 }
-id - The internal id assigned to this domain name by API Gateway.
-# ------------------------------------------------------------------------------------------------
-# The creation date of the deployment
-# ------------------------------------------------------------------------------------------------
-output "created_date" {
-  value = aws_api_gateway_deployment.this.created_date
-}
 # ------------------------------------------------------------------------------------------------
 # The upload date associated with the domain certificate.
 # ------------------------------------------------------------------------------------------------
