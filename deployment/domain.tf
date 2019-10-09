@@ -16,6 +16,7 @@ resource "aws_api_gateway_domain_name" "this" {
 # Amazon API BASE PATH MAPPING
 # -------------------------------------------------------
 resource "aws_api_gateway_base_path_mapping" "this" {
+  depends_on  = [aws_api_gateway_domain_name.this]
   api_id      = var.rest_api_id
   base_path   = var.custom_domain_base_path
   stage_name  = var.stage_name

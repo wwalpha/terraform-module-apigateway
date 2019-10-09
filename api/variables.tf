@@ -94,14 +94,6 @@ variable "authorizer_identity_validation_expression" {
   default = null
 }
 
-# --------------------------------------------------------------------------------------------------------------
-# (required for type COGNITO_USER_POOLS) A list of the Amazon Cognito user pool ARNs. 
-# Each element is of this format: arn:aws:cognito-idp:{region}:{account_id}:userpool/{user_pool_id}.
-# --------------------------------------------------------------------------------------------------------------
-variable "authorizer_provider_arns" {
-  default = null
-}
-
 variable "authorizer_role_name" {
   default = null
 }
