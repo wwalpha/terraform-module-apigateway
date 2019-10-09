@@ -36,7 +36,7 @@ variable "xray_tracing_enabled" {
 # A mapping of tags to assign to the resource.
 # ------------------------------------------------------------------------------------------------
 variable "stage_tags" {
-  default = true
+  default = null
 }
 # ------------------------------------------------------------------------------------------------
 # The description of the stage
