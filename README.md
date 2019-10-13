@@ -82,8 +82,7 @@ module "deployment" {
 # Amazon Cognito
 # -----------------------------------------------
 module "cognito" {
-  source = "github.com/wwalpha/terraform-module-cognito"
-
+  source             = "github.com/wwalpha/terraform-module-cognito"
   user_pool_name     = "UserPoolExample"
   identity_pool_name = "IdentityPoolExample"
 }
@@ -104,8 +103,7 @@ module "api" {
 # Amazon API Resource
 # --------------------------------------------------------------------------------
 module "resource" {
-  source = "github.com/wwalpha/terraform-module-apigateway/resource"
-
+  source       = "github.com/wwalpha/terraform-module-apigateway/resource"
   rest_api_id  = "${module.api.id}"
   parent_id    = "${module.api.root_resource_id}"
   path_part    = "test"
@@ -116,8 +114,7 @@ module "resource" {
 # Amazon API Deployment
 # -------------------------------------------------------
 module "deployment" {
-  source = "github.com/wwalpha/terraform-module-apigateway/deployment"
-
+  source          = "github.com/wwalpha/terraform-module-apigateway/deployment"
   rest_api_id     = "${module.api.id}"
   stage_name      = "v2"
   deployment_md5  = "${base64encode(filemd5("main.tf"))}"
