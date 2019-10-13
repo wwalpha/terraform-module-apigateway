@@ -2,9 +2,9 @@
 
 ## Examples
 
-- [Default REST API](#Default REST API)
-- [Custom Domain Names](#Custom Domain Names)
-- [Authorizer Cognito](#Authorizer Cognito)
+- [Default REST API](#default-rest-api)
+- [Custom Domain Names](#custom-domain-names)
+- [Authorizer Cognito](#authorizer-cognito)
 
 ### Default REST API
 
