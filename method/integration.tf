@@ -40,6 +40,8 @@ resource "aws_api_gateway_integration_response" "lambda" {
 # Amazon API Gateway Integration - mock
 # -------------------------------------------------------
 resource "aws_api_gateway_integration" "mock" {
+  depends_on = [aws_api_gateway_method.this]
+
   rest_api_id = var.rest_api_id
   resource_id = var.resource_id
   http_method = aws_api_gateway_method.this.http_method

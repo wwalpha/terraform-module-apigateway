@@ -17,7 +17,7 @@ resource "aws_api_gateway_authorizer" "this" {
   authorizer_uri                   = local.authorizer_uri
   identity_source                  = var.authorizer_identity_source
   type                             = var.authorizer_type
-  authorizer_credentials           = aws_iam_role.authorizer[0].arn
+  authorizer_credentials           = local.authorizer_credentials
   authorizer_result_ttl_in_seconds = var.authorizer_result_ttl_in_seconds
   identity_validation_expression   = var.authorizer_identity_validation_expression
   provider_arns                    = local.authorizer_provider_arns
@@ -34,7 +34,7 @@ resource "aws_iam_role" "authorizer" {
 
   assume_role_policy = file("${path.module}/iam/apigateway_principals.json")
 
-  count = local.authorizer_count
+  count = local.authorizer_role_count
 }
 
 # -------------------------------------------------------

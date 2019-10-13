@@ -1,17 +1,13 @@
 provider "aws" {}
 
-# -------------------------------------------------------
-# Amazon Lambda Function
-# -------------------------------------------------------
-module "lambda" {
-  source = "github.com/wwalpha/terraform-module-registry/aws/lambda"
+# -----------------------------------------------
+# Amazon Cognito
+# -----------------------------------------------
+module "cognito" {
+  source = "github.com/wwalpha/terraform-module-cognito"
 
-  enable_dummy  = true
-  function_name = "lambda-example"
-  handler       = "index.handler"
-  runtime       = "nodejs10.x"
-  role_name     = "LambdaExampleRole"
-  timeout       = 5
+  user_pool_name     = "${local.project_name_uc}-UserPool"
+  identity_pool_name = "${local.project_name_uc}_IdentityPool"
 }
 
 # -------------------------------------------------------
@@ -47,24 +43,22 @@ module "method" {
   lambda_function_uri = "${module.lambda.invoke_arn}"
 }
 
+
 # -------------------------------------------------------
 # Amazon API Deployment
 # -------------------------------------------------------
 module "deployment" {
-  source = "../../deployment"
+  source = "github.com/wwalpha/terraform-module-apigateway/deployment"
 
-  rest_api_id = "${module.api.id}"
-  stage_name  = "v2"
-  description = "deployment description"
-  deployment_md5 = "${base64encode(join("", [
-    file("main.tf"),
+  rest_api_id                            = "${module.api.id}"
+  stage_name                             = "v1"
+  custom_domain_name                     = "${aws_acm_certificate.api.domain_name}"
+  custom_domain_regional_certificate_arn = "${aws_acm_certificate_validation.api.certificate_arn}"
+  custom_domain_endpoint_configuration   = "${local.api_endpoint_configuration}"
+
+  integration_ids = [
     "${module.method.integration_id}",
-    "${module.method.method_id}"
-  ]))}"
-  xray_tracing_enabled = true
-  stage_description    = "stage description"
-  stage_tags = {
-    Name = "test"
-  }
-  integration_ids = ["${module.method.integration_id}"]
+  ]
+
+  deployment_md5 = "${base64encode(join("", local.deployment_files))}"
 }
