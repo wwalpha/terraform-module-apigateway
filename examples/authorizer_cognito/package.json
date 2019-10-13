@@ -1,0 +1,11 @@
+{
+  "name": "terraform",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "terraform init && yarn apply && yarn destroy",
+    "apply": "terraform apply -auto-approve=true",
+    "destroy": "terraform destroy -auto-approve=true"
+  }
+}
