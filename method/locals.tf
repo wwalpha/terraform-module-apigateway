@@ -13,9 +13,9 @@ locals {
   # -------------------------------------------------------
   # Lambda
   # -------------------------------------------------------
-  function_arn   = split("/", var.lambda_function_uri)[3]
-  function_name  = split(":", local.function_arn)[6]
-  function_alias = split(":", local.function_arn)[7]
+  function_arn   = var.lambda_function_uri != null ? split("/", var.lambda_function_uri)[3] : null
+  function_name  = local.function_arn != null ? split(":", local.function_arn)[6] : null
+  function_alias = local.function_arn != null ? split(":", local.function_arn)[7] : null
 }
 
 # -------------------------------------------------------

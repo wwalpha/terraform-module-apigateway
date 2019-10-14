@@ -15,7 +15,7 @@ resource "aws_api_gateway_integration" "lambda" {
     create_before_destroy = false
   }
 
-  count = var.integration_type == "AWS_PROXY" ? 1 : 0
+  count = var.lambda_function_uri != null && var.integration_type == "AWS_PROXY" ? 1 : 0
 }
 
 # -------------------------------------------------------
@@ -33,7 +33,7 @@ resource "aws_api_gateway_integration_response" "lambda" {
     "method.response.header.Access-Control-Allow-Origin" = "integration.response.header.Access-Control-Allow-Origin"
   }
 
-  count = var.integration_type == "AWS_PROXY" ? 1 : 0
+  count = var.lambda_function_uri != null && var.integration_type == "AWS_PROXY" ? 1 : 0
 }
 
 # -------------------------------------------------------
