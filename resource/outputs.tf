@@ -8,7 +8,7 @@ output "id" {
 # The complete path for this API resource, including all parent paths.
 # ------------------------------------------------------------------------------------------------
 output "path" {
-  value = aws_api_gateway_resource.this.id
+  value = aws_api_gateway_resource.this.path
 }
 # ------------------------------------------------------------------------------------------------
 # The complete path for this API resource, including all parent paths.
