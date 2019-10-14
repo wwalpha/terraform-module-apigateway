@@ -5,6 +5,7 @@
 - [Default REST API](#default-rest-api)
 - [Custom Domain Names](#custom-domain-names)
 - [Authorizer Cognito](#authorizer-cognito)
+- [Lambda Integration](#lambda-integration)
 
 ### Default REST API
 
@@ -120,4 +121,62 @@ module "deployment" {
   deployment_md5  = "${base64encode(filemd5("main.tf"))}"
   integration_ids = ["${module.resource.cors_integration_id}"]
 }
+```
+
+### Lambda Integration
+
+```terraform
+# --------------------------------------------------------------------------------
+# AWS Lambda
+# --------------------------------------------------------------------------------
+module "lambda" {
+  source        = "github.com/wwalpha/terraform-module-lambda"
+  dummy_enabled = true
+  function_name = "LambdaExample"
+  alias_name    = "dev"
+  handler       = "index.handler"
+  runtime       = "nodejs10.x"
+  memory_size   = 512
+  role_name     = "LambdaExampleRole"
+}
+
+# --------------------------------------------------------------------------------
+# Amazon API REST API
+# --------------------------------------------------------------------------------
+module "api" {
+  source   = "github.com/wwalpha/terraform-module-apigateway/api"
+  api_name = "example"
+}
+
+# --------------------------------------------------------------------------------
+# Amazon API Resource
+# --------------------------------------------------------------------------------
+module "resource" {
+  source      = "github.com/wwalpha/terraform-module-apigateway/resource"
+  rest_api_id = "${module.api.id}"
+  parent_id   = "${module.api.root_resource_id}"
+  path_part   = "test"
+}
+
+# --------------------------------------------------------------------------------
+# Amazon API Method
+# --------------------------------------------------------------------------------
+module "method" {
+  source              = "github.com/wwalpha/terraform-module-apigateway/method"
+  rest_api_id         = "${module.api.id}"
+  resource_id         = "${module.resource.id}"
+  resource_path       = "${module.resource.path}"
+  lambda_function_uri = "${module.lambda.invoke_arn}"
+}
+
+# --------------------------------------------------------------------------------
+# Amazon API Deployment
+# --------------------------------------------------------------------------------
+module "deployment" {
+  source          = "github.com/wwalpha/terraform-module-apigateway/deployment"
+  rest_api_id     = "${module.api.id}"
+  integration_ids = ["${module.method.integration_id}"]
+  deployment_md5  = "${base64encode(file("main.tf"))}"
+}
+
 ```
