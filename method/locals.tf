@@ -15,8 +15,8 @@ locals {
   # -------------------------------------------------------
   function_arn        = var.lambda_function_uri != null ? split("/", var.lambda_function_uri)[3] : null
   function_arn_splits = local.function_arn != null ? split(":", local.function_arn) : []
-  function_name       = length(local.function_arn) >= 7 ? local.function_arn_splits[6] : null
-  function_alias      = length(local.function_arn) >= 8 ? local.function_arn_splits[7] : null
+  function_name       = length(local.function_arn_splits) >= 7 ? local.function_arn_splits[6] : null
+  function_alias      = length(local.function_arn_splits) >= 8 ? local.function_arn_splits[7] : null
 }
 
 # -------------------------------------------------------
