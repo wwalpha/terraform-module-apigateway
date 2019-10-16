@@ -10,7 +10,10 @@ resource "aws_api_gateway_deployment" "this" {
 
   rest_api_id = var.rest_api_id
   description = var.description
-  variables   = var.deployment_variables
+  # variables   = var.deployment_variables
+  variables = {
+    deployment_md5 = var.deployment_md5
+  }
 
   lifecycle {
     create_before_destroy = true
