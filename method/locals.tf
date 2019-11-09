@@ -13,10 +13,11 @@ locals {
   # -------------------------------------------------------
   # Lambda
   # -------------------------------------------------------
-  function_arn        = var.lambda_function_uri != null ? split("/", var.lambda_function_uri)[3] : null
-  function_arn_splits = local.function_arn != null ? split(":", local.function_arn) : []
-  function_name       = length(local.function_arn_splits) >= 7 ? local.function_arn_splits[6] : null
-  function_alias      = length(local.function_arn_splits) >= 8 ? local.function_arn_splits[7] : null
+  full_function_arn = var.lambda_function_uri != null ? split("/", var.lambda_function_uri)[3] : null
+  arn_splits        = local.full_function_arn != null ? split(":", local.full_function_arn) : []
+  function_name     = length(local.arn_splits) >= 7 ? local.arn_splits[6] : null
+  function_alias    = length(local.arn_splits) >= 8 ? local.arn_splits[7] : null
+  function_arn      = "${local.arn_splits[0]}:${local.arn_splits[1]}:${local.arn_splits[2]}:${local.arn_splits[3]}:${local.arn_splits[4]}:${local.arn_splits[5]}:${local.arn_splits[6]}"
 }
 
 # -------------------------------------------------------
