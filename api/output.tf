@@ -35,6 +35,6 @@ output "execution_arn" {
 # authorizer_id
 # ------------------------------------------------------------
 output "authorizer_id" {
-  value = aws_api_gateway_authorizer.this[0].id
+  value = length(aws_api_gateway_authorizer.this) != 0 ? aws_api_gateway_authorizer.this[0].id : null
 }
 
