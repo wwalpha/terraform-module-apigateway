@@ -18,4 +18,3 @@ resource "aws_api_gateway_rest_api" "this" {
     types = [var.api_endpoint_configuration]
   }
 }
-
